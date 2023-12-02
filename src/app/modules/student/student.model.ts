@@ -4,7 +4,10 @@ import {
   ILocalGuardian,
   IStudent,
   IUserName,
+  Student,
 } from './student.interface';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
 const userNameSchema = new Schema<IUserName>({
   firstName: {
@@ -76,8 +79,13 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
   },
 });
 
-const studentSchema = new Schema<IStudent>({
+const studentSchema = new Schema<IStudent, Student>({
   id: { type: String, required: [true, 'ID is required'], unique: true },
+  password: {
+    type: String,
+    required: [true, 'Password is required'],
+    unique: true,
+  },
   name: {
     type: userNameSchema,
     required: [true, 'Name is required'],
@@ -135,6 +143,22 @@ const studentSchema = new Schema<IStudent>({
   },
 });
 
-const Student = model<IStudent>('Student', studentSchema);
+//  pre save middleware / hook
+studentSchema.pre('save', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const student = this;
+  student.password = await bcrypt.hash(
+    student.password,
+    Number(config.bcrypt_round_salt),
+  );
+  next();
+});
+
+studentSchema.statics.isStudentExists = async function (id: string) {
+  const existingStudent = await Student.findOne({ id });
+  return existingStudent;
+};
+
+const Student = model<IStudent, Student>('Student', studentSchema);
 
 export default Student;

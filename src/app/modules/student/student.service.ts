@@ -1,8 +1,16 @@
 import { IStudent } from './student.interface';
 import Student from './student.model';
 
-const createStudentIntoDB = async (student: IStudent) => {
-  const result = await Student.create(student);
+const createStudentIntoDB = async (studentData: IStudent) => {
+  // const student = new Student(studentData);
+  // const result = student.save();
+
+  if (await Student.isStudentExists(studentData.id)) {
+    throw new Error('Student Already Exits');
+  }
+
+  const result = await Student.create(studentData);
+
   return result;
 };
 

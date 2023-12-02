@@ -1,3 +1,5 @@
+import { Model } from 'mongoose';
+
 interface IUserName {
   firstName: string;
   middleName: string;
@@ -22,6 +24,7 @@ interface ILocalGuardian {
 
 interface IStudent {
   id: string;
+  password: string;
   name: IUserName;
   gender: 'male' | 'female';
   dateOfBirth: string;
@@ -37,4 +40,8 @@ interface IStudent {
   isActive: 'active' | 'inActive';
 }
 
-export { IStudent, IUserName, IGuardian, ILocalGuardian };
+interface Student extends Model<IStudent> {
+  isStudentExists(id: string): Promise<IStudent | null>;
+}
+
+export { IStudent, IUserName, IGuardian, ILocalGuardian, Student };
