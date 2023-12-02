@@ -38,9 +38,11 @@ interface IStudent {
   localGuardian: ILocalGuardian;
   profileImg?: string;
   isActive: 'active' | 'inActive';
+  isDeleted: boolean;
 }
 
 interface Student extends Model<IStudent> {
+  // eslint-disable-next-line no-unused-vars
   isStudentExists(id: string): Promise<IStudent | null>;
 }
 
