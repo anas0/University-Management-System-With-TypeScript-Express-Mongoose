@@ -82,6 +82,12 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
 const studentSchema = new Schema<IStudent, Student>(
   {
     id: { type: String, required: [true, 'ID is required'], unique: true },
+    user: {
+      type: Schema.Types.ObjectId,
+      required: [true, 'User ID is required'],
+      unique: true,
+      ref: 'User',
+    },
     password: {
       type: String,
       required: [true, 'Password is required'],
@@ -133,14 +139,6 @@ const studentSchema = new Schema<IStudent, Student>(
       required: [true, 'Local guardian information is required'],
     },
     profileImg: { type: String },
-    isActive: {
-      type: String,
-      enum: {
-        values: ['active', 'inActive'],
-        message: '{VALUE} is not a valid status',
-      },
-      default: 'active',
-    },
     isDeleted: {
       type: Boolean,
       default: false,

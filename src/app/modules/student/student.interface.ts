@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 interface IUserName {
   firstName: string;
@@ -24,6 +24,7 @@ interface ILocalGuardian {
 
 interface IStudent {
   id: string;
+  user: Types.ObjectId;
   password: string;
   name: IUserName;
   gender: 'male' | 'female';
@@ -37,7 +38,6 @@ interface IStudent {
   guardian: IGuardian;
   localGuardian: ILocalGuardian;
   profileImg?: string;
-  isActive: 'active' | 'inActive';
   isDeleted: boolean;
 }
 
