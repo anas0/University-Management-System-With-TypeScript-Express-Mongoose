@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Request, Response } from 'express';
-import { UserValidation } from './user.validation';
-import { ZodError } from 'zod';
+import { NextFunction, Request, Response } from 'express';
 import { UserServices } from './user.service';
+import sendResponse from '../../utils/sendResponse';
+import httpStatus from 'http-status';
 
-const createStudent = async (req: Request, res: Response) => {
+const createStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const { password, studentData } = req.body;
+    const { password, student: studentData } = req.body;
 
     // const zodParsedData = UserValidation.studentValidationSchema.parse(studentData);
 
@@ -15,17 +19,19 @@ const createStudent = async (req: Request, res: Response) => {
       studentData,
     );
 
-    res.status(200).json({
-      status: 'success',
-      message: 'User created Successfully',
+    // res.status(200).json({
+    //   status: 'success',
+    //   message: 'User created Successfully',
+    //   data: result,
+    // });
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Student created Successfully',
       data: result,
     });
-  } catch (err: any) {
-    if (err instanceof ZodError) console.log(err);
-    res.status(500).json({
-      status: 'fail',
-      message: err.message || 'Something went wrong',
-    });
+  } catch (err) {
+    next(err);
   }
 };
 
