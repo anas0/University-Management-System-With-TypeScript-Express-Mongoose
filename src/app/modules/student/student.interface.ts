@@ -28,7 +28,7 @@ interface IStudent {
   password: string;
   name: IUserName;
   gender: 'male' | 'female';
-  dateOfBirth: string;
+  dateOfBirth: Date;
   email: string;
   contactNo: string;
   emergencyContactNo: string;
