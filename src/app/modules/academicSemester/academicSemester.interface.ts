@@ -1,4 +1,4 @@
-type Month =
+export type IMonth =
   | 'January'
   | 'February'
   | 'March'
@@ -16,6 +16,6 @@ export type IAcademicSemester = {
   name: 'Autumn' | 'Summer' | 'Fall';
   code: '01' | '02' | '03';
   year: Date;
-  startMonth: Month;
-  endMonth: Month;
+  startMonth: IMonth;
+  endMonth: IMonth;
 };

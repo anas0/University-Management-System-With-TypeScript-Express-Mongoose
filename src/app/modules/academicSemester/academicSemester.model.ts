@@ -1,32 +1,46 @@
 import { Schema, model } from 'mongoose';
-import { IAcademicSemester } from './academicSemester.interface';
+import { IAcademicSemester, IMonth } from './academicSemester.interface';
+
+const monthSchema: IMonth[] = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
 const academicSemesterSchema = new Schema<IAcademicSemester>(
   {
-    id: {
+    name: {
       type: String,
-      required: [true, 'ID is required'],
-    },
-    password: {
-      type: String,
+      enum: ['Autumn', 'Summer', 'Fall'],
       required: true,
     },
-    needsPasswordChange: {
-      type: Boolean,
-      default: true,
-    },
-    role: {
+    code: {
       type: String,
-      enum: ['admin', 'student', 'faculty'],
+      enum: ['01', '02', '03'],
+      required: true,
     },
-    status: {
+    year: {
+      type: Date,
+      required: true,
+    },
+    startMonth: {
       type: String,
-      enum: ['in-progress', 'blocked'],
-      default: 'in-progress',
+      enum: monthSchema,
+      required: true,
     },
-    isDeleted: {
-      type: Boolean,
-      default: false,
+    endMonth: {
+      type: String,
+      enum: monthSchema,
+      required: true,
     },
   },
   {
