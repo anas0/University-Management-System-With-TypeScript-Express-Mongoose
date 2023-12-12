@@ -1,20 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { IAcademicSemester, IMonth } from './academicSemester.interface';
-
-const monthSchema: IMonth[] = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
+import { IAcademicSemester } from './academicSemester.interface';
+import { MonthSchema } from './academicSemester.constant';
 
 const academicSemesterSchema = new Schema<IAcademicSemester>(
   {
@@ -34,12 +20,12 @@ const academicSemesterSchema = new Schema<IAcademicSemester>(
     },
     startMonth: {
       type: String,
-      enum: monthSchema,
+      enum: MonthSchema,
       required: true,
     },
     endMonth: {
       type: String,
-      enum: monthSchema,
+      enum: MonthSchema,
       required: true,
     },
   },
