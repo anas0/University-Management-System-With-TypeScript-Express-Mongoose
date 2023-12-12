@@ -38,6 +38,7 @@ interface IStudent {
   guardian: IGuardian;
   localGuardian: ILocalGuardian;
   profileImg?: string;
+  admissionSemester: Types.ObjectId;
   isDeleted: boolean;
 }
 

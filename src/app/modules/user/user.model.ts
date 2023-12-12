@@ -8,6 +8,7 @@ const userSchema = new Schema<IUser>(
     id: {
       type: String,
       required: [true, 'ID is required'],
+      unique: true,
     },
     password: {
       type: String,
