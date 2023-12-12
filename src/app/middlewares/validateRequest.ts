@@ -5,11 +5,11 @@ const validateRequest = (schema: AnyZodObject) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       //  validation
-      const zodParsedData = await schema.parseAsync({
+      await schema.parseAsync({
         body: req.body,
       });
 
-      next(zodParsedData);
+      next();
     } catch (err) {
       next(err);
     }
