@@ -1,4 +1,7 @@
-import { IMonth } from './academicSemester.interface';
+import {
+  IMonth,
+  TAcademicSemesterNameCode,
+} from './academicSemester.interface';
 
 export const MonthSchema: IMonth[] = [
   'January',
@@ -14,3 +17,9 @@ export const MonthSchema: IMonth[] = [
   'November',
   'December',
 ];
+
+export const academicSemesterNameCodeMapper: TAcademicSemesterNameCode = {
+  Autumn: '01',
+  Summer: '02',
+  Fall: '03',
+};

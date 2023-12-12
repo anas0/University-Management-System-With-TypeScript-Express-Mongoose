@@ -5,7 +5,6 @@ import catchAsync from '../../utils/catchAsync';
 import { AcademicSemesterServices } from './academicSemester.service';
 
 const createAcademicSemester: RequestHandler = catchAsync(async (req, res) => {
-  console.log('Anas');
   const data = req.body;
 
   const result =
